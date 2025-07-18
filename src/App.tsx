@@ -27,7 +27,7 @@ function MainApp({ user }: { user: User }) {
   return (
     <>
       {/* Navigation */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 mb-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 mb-12">
         <div className="flex">
           {tabs.map((tab) => {
             const Icon = tab.icon;
@@ -35,7 +35,7 @@ function MainApp({ user }: { user: User }) {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 rounded-2xl font-medium transition-all duration-200 ₹{
+                className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 rounded-2xl font-medium transition-all duration-200 ${
                   activeTab === tab.id
                     ? 'bg-blue-50 text-blue-600 shadow-sm'
                     : 'text-slate-600 hover:text-slate-800 hover:bg-slate-50'
@@ -50,7 +50,7 @@ function MainApp({ user }: { user: User }) {
       </div>
 
       {/* Content */}
-      <div className="transition-all duration-300">
+      <div className="transition-all duration-300 py-8">
         {activeTab === 'dashboard' && <Dashboard user={user} />}
         {activeTab === 'expenses' && <ExpenseTracker user={user} />}
         {activeTab === 'lend-borrow' && <LendBorrowManager user={user} />}
