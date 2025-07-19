@@ -29,35 +29,58 @@ function MainApp({ user }: { user: User }) {
 
   return (
     <>
-      {/* Navigation */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 mb-8 md:mb-12">
-        <div className="flex flex-col sm:flex-row">
+      {/* Top Navigation (desktop) */}
+      <nav className="sticky top-0 z-50 bg-white rounded-none sm:rounded-2xl shadow-md border-b border-slate-200 mb-4 sm:mb-8 hidden sm:block">
+        <div className="flex flex-row justify-center sm:justify-start gap-2 sm:gap-4 px-2 sm:px-6 py-2 sm:py-4">
           {tabs.map((tab) => {
             const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
             return (
               <button
                 key={tab.id}
+                aria-label={tab.label}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-medium transition-all duration-200 ${
-                  activeTab === tab.id
-                    ? 'bg-blue-50 text-blue-600 shadow-sm'
-                    : 'text-slate-600 hover:text-slate-800 hover:bg-slate-50'
+                className={`flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-3 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold text-base sm:text-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 ${
+                  isActive
+                    ? 'bg-green-50 text-green-600 shadow-sm'
+                    : 'text-slate-600 hover:text-green-600 hover:bg-slate-50'
                 }`}
               >
-                <Icon size={18} className="sm:w-5 sm:h-5" />
-                <span className="text-sm sm:text-base">{tab.label}</span>
+                <Icon size={24} className="sm:w-6 sm:h-6" />
+                <span className="text-xs sm:text-base font-medium mt-1 sm:mt-0">{tab.label}</span>
               </button>
             );
           })}
         </div>
-      </div>
+      </nav>
 
       {/* Content */}
-      <div className="transition-all duration-300 py-4 sm:py-8">
+      <div className="transition-all duration-300 py-4 sm:py-8 pb-20 sm:pb-8 max-w-3xl mx-auto">
         {activeTab === 'dashboard' && <Dashboard user={user} />}
         {activeTab === 'expenses' && <ExpenseTracker user={user} />}
         {activeTab === 'lend-borrow' && <LendBorrowManager user={user} />}
       </div>
+
+      {/* Bottom Navigation (mobile only) */}
+      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 shadow-t flex sm:hidden justify-around py-2 px-2">
+        {tabs.map((tab) => {
+          const Icon = tab.icon;
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              aria-label={tab.label}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex flex-col items-center justify-center flex-1 px-2 py-1 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 ${
+                isActive ? 'bg-green-50 text-green-600' : 'text-slate-500 hover:text-green-600'
+              }`}
+            >
+              <Icon size={26} className="mb-0.5" />
+              <span className="text-xs font-semibold">{tab.label}</span>
+            </button>
+          );
+        })}
+      </nav>
     </>
   );
 }

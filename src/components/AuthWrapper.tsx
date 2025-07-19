@@ -75,7 +75,7 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
         <div className="bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
-          <div className="animate-spin rounded-full h-6 w-6 sm:h-8 sm:w-8 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-6 w-6 sm:h-8 sm:w-8 border-b-2 border-green-600 mx-auto"></div>
           <p className="text-slate-600 mt-3 sm:mt-4 text-center text-sm sm:text-base">Loading...</p>
         </div>
       </div>
@@ -104,7 +104,7 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm sm:text-base"
                 placeholder="Enter your email"
                 required
               />
@@ -117,7 +117,7 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm sm:text-base"
                 placeholder="Enter your password"
                 required
                 minLength={6}
@@ -133,7 +133,7 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 text-sm sm:text-base"
+              className="w-full bg-green-600 text-white py-3 rounded-xl hover:bg-green-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 text-sm sm:text-base"
             >
               {loading ? (
                 <div className="animate-spin rounded-full h-4 w-4 sm:h-5 sm:w-5 border-b-2 border-white"></div>
@@ -149,7 +149,7 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
           <div className="mt-6 text-center">
             <button
               onClick={() => setIsSignUp(!isSignUp)}
-              className="text-blue-600 hover:text-blue-700 text-sm"
+              className="text-green-600 hover:text-green-700 text-sm"
             >
               {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
             </button>

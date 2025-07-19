@@ -45,9 +45,9 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
         };
       default:
         return {
-          icon: 'text-blue-600',
-          button: 'bg-blue-600 hover:bg-blue-700 text-white',
-          border: 'border-blue-200'
+          icon: 'text-green-600',
+          button: 'bg-green-600 hover:bg-green-700 text-white',
+          border: 'border-green-200'
         };
     }
   };

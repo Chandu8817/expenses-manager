@@ -111,7 +111,7 @@ const LendBorrowManager: React.FC<LendBorrowManagerProps> = ({ user }) => {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600"></div>
       </div>
     );
   }
@@ -134,7 +134,7 @@ const LendBorrowManager: React.FC<LendBorrowManagerProps> = ({ user }) => {
         </div>
         <button
           onClick={() => setShowForm(true)}
-          className="w-full sm:w-auto bg-blue-600 text-white px-4 sm:px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 shadow-sm"
+          className="w-full sm:w-auto bg-primary text-white px-4 sm:px-6 py-3 rounded-xl hover:bg-primary-dark transition-colors flex items-center justify-center gap-2 shadow-sm"
         >
           <Plus size={18} className="sm:w-5 sm:h-5" />
           <span className="text-sm sm:text-base">Add Record</span>
@@ -143,19 +143,19 @@ const LendBorrowManager: React.FC<LendBorrowManagerProps> = ({ user }) => {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-        <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200">
+        <div className="bg-primary-light rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm border border-primary/20">
           <div className="flex items-center justify-between">
-            <div className="p-2 sm:p-3 bg-green-50 rounded-lg sm:rounded-xl">
-              <ArrowUp className="text-green-600 sm:w-6 sm:h-6" size={20} />
+            <div className="p-2 sm:p-3 bg-primary/20 rounded-lg sm:rounded-xl">
+              <ArrowUp className="text-primary-dark sm:w-6 sm:h-6" size={20} />
             </div>
-            <span className="text-xs sm:text-sm text-green-600 font-medium">Money Lent</span>
+            <span className="text-xs sm:text-sm text-primary-dark font-medium">Money Lent</span>
           </div>
           <div className="mt-3 sm:mt-4">
-            <h3 className="text-lg sm:text-2xl font-bold text-slate-900">+₹{totalLent.toFixed(2)}</h3>
+            <h3 className="text-lg sm:text-2xl font-bold text-primary-dark">+₹{totalLent.toFixed(2)}</h3>
             <p className="text-xs sm:text-sm text-slate-600">Pending returns</p>
           </div>
         </div>
-        <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200">
+        <div className="bg-primary-light rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm border border-primary/20">
           <div className="flex items-center justify-between">
             <div className="p-2 sm:p-3 bg-orange-50 rounded-lg sm:rounded-xl">
               <ArrowDown className="text-orange-600 sm:w-6 sm:h-6" size={20} />
@@ -163,19 +163,19 @@ const LendBorrowManager: React.FC<LendBorrowManagerProps> = ({ user }) => {
             <span className="text-xs sm:text-sm text-orange-600 font-medium">Money Borrowed</span>
           </div>
           <div className="mt-3 sm:mt-4">
-            <h3 className="text-lg sm:text-2xl font-bold text-slate-900">-₹{totalBorrowed.toFixed(2)}</h3>
+            <h3 className="text-lg sm:text-2xl font-bold text-orange-600">-₹{totalBorrowed.toFixed(2)}</h3>
             <p className="text-xs sm:text-sm text-slate-600">To be returned</p>
           </div>
         </div>
-        <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200 sm:col-span-2 lg:col-span-1">
+        <div className="bg-primary-light rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm border border-primary/20 sm:col-span-2 lg:col-span-1">
           <div className="flex items-center justify-between">
-            <div className="p-2 sm:p-3 bg-blue-50 rounded-lg sm:rounded-xl">
-              <User className="text-blue-600 sm:w-6 sm:h-6" size={20} />
+            <div className="p-2 sm:p-3 bg-primary/20 rounded-lg sm:rounded-xl">
+              <User className="text-primary-dark sm:w-6 sm:h-6" size={20} />
             </div>
-            <span className="text-xs sm:text-sm text-blue-600 font-medium">Net Balance</span>
+            <span className="text-xs sm:text-sm text-primary-dark font-medium">Net Balance</span>
           </div>
           <div className="mt-3 sm:mt-4">
-            <h3 className={`text-lg sm:text-2xl font-bold ${totalLent - totalBorrowed >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+            <h3 className={`text-lg sm:text-2xl font-bold ${totalLent - totalBorrowed >= 0 ? 'text-primary-dark' : 'text-red-600'}`}>
               {totalLent - totalBorrowed >= 0 ? '+' : ''}₹{(totalLent - totalBorrowed).toFixed(2)}
             </h3>
             <p className="text-xs sm:text-sm text-slate-600">Overall balance</p>
@@ -185,7 +185,7 @@ const LendBorrowManager: React.FC<LendBorrowManagerProps> = ({ user }) => {
 
       {/* Tabs */}
       <div className="bg-white rounded-xl sm:rounded-2xl shadow-sm border border-slate-200">
-        <div className="flex flex-col sm:flex-row border-b border-slate-200">
+        <div className="flex flex-row overflow-x-auto no-scrollbar border-b border-slate-200">
           {[
             { id: 'all', label: 'All Records' },
             { id: 'lent', label: 'Money Lent' },
@@ -194,10 +194,10 @@ const LendBorrowManager: React.FC<LendBorrowManagerProps> = ({ user }) => {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as typeof activeTab)}
-              className={`flex-1 px-4 sm:px-6 py-3 sm:py-4 text-sm font-medium transition-colors ${
+              className={`flex-1 min-w-[120px] px-3 sm:px-6 py-2 sm:py-3 mx-1 my-2 sm:my-0 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
                 activeTab === tab.id
-                  ? 'text-blue-600 border-b-2 border-blue-600'
-                  : 'text-slate-600 hover:text-slate-800'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'bg-primary-light text-primary-dark hover:bg-primary/20 hover:text-primary-dark'
               }`}
             >
               {tab.label}
@@ -208,71 +208,70 @@ const LendBorrowManager: React.FC<LendBorrowManagerProps> = ({ user }) => {
         {/* Records List */}
         <div className="divide-y divide-slate-200">
           {filteredItems.map((item) => (
-            <div key={item.id} className="p-4 sm:p-6 hover:bg-slate-50 transition-colors">
-              <div className="flex items-center justify-between">
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0 ${
-                      item.type === 'lent' ? 'bg-green-100' : 'bg-orange-100'
-                    }`}>
-                      {item.type === 'lent' ? 
-                        <ArrowUp className="text-green-600 sm:w-5 sm:h-5" size={16} /> :
-                        <ArrowDown className="text-orange-600 sm:w-5 sm:h-5" size={16} />
-                      }
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <h4 className="font-medium text-slate-900 text-sm sm:text-base truncate">{item.person}</h4>
-                      <p className="text-sm text-slate-600 truncate">{item.description}</p>
-                      <div className="flex items-center gap-2 mt-1 flex-wrap">
-                        <span className="text-xs text-slate-500">{item.date}</span>
-                        {item.due_date && (
-                          <>
-                            <span className="text-xs text-slate-400">•</span>
-                            <span className="text-xs text-slate-500">Due: {item.due_date}</span>
-                          </>
-                        )}
-                        <span className={`text-xs px-2 py-1 rounded-full ${
-                          item.status === 'completed' 
-                            ? 'bg-green-100 text-green-600' 
-                            : 'bg-yellow-100 text-yellow-600'
-                        }`}>
-                          {item.status}
-                        </span>
-                      </div>
+            <div key={item.id} className="p-3 sm:p-6 hover:bg-slate-50 transition-colors">
+              {/* Record Row: Left (info) | Right (amount + actions) */}
+              <div className="flex flex-row gap-2 items-center">
+                {/* Left: Icon + Info */}
+                <div className="flex-1 min-w-0 flex items-center gap-2 sm:gap-3">
+                  <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0 ${
+                    item.type === 'lent' ? 'bg-green-100' : 'bg-orange-100'
+                  }`}>
+                    {item.type === 'lent' ? 
+                      <ArrowUp className="text-primary-dark sm:w-5 sm:h-5" size={16} /> :
+                      <ArrowDown className="text-orange-600 sm:w-5 sm:h-5" size={16} />
+                    }
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h4 className="font-medium text-slate-900 text-sm sm:text-base truncate">{item.person}</h4>
+                    <p className="text-xs sm:text-sm text-slate-600 break-words line-clamp-2">{item.description}</p>
+                    <div className="flex items-center gap-2 mt-1 flex-wrap">
+                      <span className="text-xs text-slate-500">{item.date}</span>
+                      {item.due_date && (
+                        <>
+                          <span className="text-xs text-slate-400">•</span>
+                          <span className="text-xs text-slate-500">Due: {item.due_date}</span>
+                        </>
+                      )}
+                      <span className={`text-xs px-2 py-1 rounded-full ${
+                        item.status === 'completed' 
+                          ? 'bg-green-100 text-green-600' 
+                          : 'bg-yellow-100 text-yellow-600'
+                      }`}>
+                        {item.status}
+                      </span>
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 sm:gap-4 ml-2">
-                  <div className="text-right">
+                {/* Right: Amount + Actions */}
+                <div className="flex items-center gap-1 flex-shrink-0 ml-2">
+                  <div className="text-right min-w-[80px]">
                     <p className={`text-base sm:text-lg font-semibold ${
-                      item.type === 'lent' ? 'text-green-600' : 'text-orange-600'
+                      item.type === 'lent' ? 'text-primary-dark' : 'text-orange-600'
                     }`}>
                       {item.type === 'lent' ? '+' : '-'}₹{item.amount.toFixed(2)}
                     </p>
                   </div>
-                  <div className="flex items-center gap-1 sm:gap-2">
-                    {item.status === 'pending' && (
-                      <button
-                        onClick={() => handleStatusChange(item.id, 'completed')}
-                        className="p-1.5 sm:p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
-                        title="Mark as completed"
-                      >
-                        <Check size={14} className="sm:w-4 sm:h-4" />
-                      </button>
-                    )}
+                  {item.status === 'pending' && (
                     <button
-                      onClick={() => handleEdit(item)}
-                      className="p-1.5 sm:p-2 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                      onClick={() => handleStatusChange(item.id, 'completed')}
+                      className="action-btn text-green-600"
+                      title="Mark as completed"
                     >
-                      <Edit size={14} className="sm:w-4 sm:h-4" />
+                      <Check size={16} className="sm:w-4 sm:h-4" />
                     </button>
-                    <button
-                      onClick={() => handleDelete(item.id)}
-                      className="p-1.5 sm:p-2 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                    >
-                      <Trash2 size={14} className="sm:w-4 sm:h-4" />
-                    </button>
-                  </div>
+                  )}
+                  <button
+                    onClick={() => handleEdit(item)}
+                    className="action-btn text-slate-600"
+                  >
+                    <Edit size={16} className="sm:w-4 sm:h-4" />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    className="action-btn text-slate-600 hover:text-red-600"
+                  >
+                    <Trash2 size={16} className="sm:w-4 sm:h-4" />
+                  </button>
                 </div>
               </div>
             </div>
@@ -296,7 +295,7 @@ const LendBorrowManager: React.FC<LendBorrowManagerProps> = ({ user }) => {
                   type="text"
                   value={formData.person}
                   onChange={(e) => setFormData({ ...formData, person: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm sm:text-base"
                   placeholder="Who did you lend to or borrow from?"
                   required
                 />
@@ -308,7 +307,7 @@ const LendBorrowManager: React.FC<LendBorrowManagerProps> = ({ user }) => {
                 <select
                   value={formData.type}
                   onChange={(e) => setFormData({ ...formData, type: e.target.value as 'lent' | 'borrowed' })}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm sm:text-base"
                 >
                   <option value="lent">Money Lent</option>
                   <option value="borrowed">Money Borrowed</option>
@@ -323,7 +322,7 @@ const LendBorrowManager: React.FC<LendBorrowManagerProps> = ({ user }) => {
                   step="0.01"
                   value={formData.amount}
                   onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm sm:text-base"
                   placeholder="0.00"
                   required
                 />
@@ -336,7 +335,7 @@ const LendBorrowManager: React.FC<LendBorrowManagerProps> = ({ user }) => {
                   type="date"
                   value={formData.date}
                   onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm sm:text-base"
                   required
                 />
               </div>
@@ -348,7 +347,7 @@ const LendBorrowManager: React.FC<LendBorrowManagerProps> = ({ user }) => {
                   type="date"
                   value={formData.dueDate}
                   onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm sm:text-base"
                 />
               </div>
               <div>
@@ -359,7 +358,7 @@ const LendBorrowManager: React.FC<LendBorrowManagerProps> = ({ user }) => {
                   type="text"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm sm:text-base"
                   placeholder="What was this for?"
                   required
                 />
@@ -379,7 +378,7 @@ const LendBorrowManager: React.FC<LendBorrowManagerProps> = ({ user }) => {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50 text-sm sm:text-base"
+                  className="flex-1 px-4 py-3 bg-primary text-white rounded-xl hover:bg-primary-dark transition-colors disabled:opacity-50 text-sm sm:text-base"
                 >
                   {submitting ? 'Saving...' : editingItem ? 'Update' : 'Add'} Record
                 </button>

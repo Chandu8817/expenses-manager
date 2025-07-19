@@ -98,7 +98,7 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600"></div>
       </div>
     );
   }
@@ -121,7 +121,7 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
         </div>
         <button
           onClick={() => setShowForm(true)}
-          className="w-full sm:w-auto bg-blue-600 text-white px-4 sm:px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 shadow-sm"
+          className="w-full sm:w-auto bg-green-600 text-white px-4 sm:px-6 py-3 rounded-xl hover:bg-green-700 transition-colors flex items-center justify-center gap-2 shadow-sm"
         >
           <Plus size={18} className="sm:w-5 sm:h-5" />
           <span className="text-sm sm:text-base">Add Expense</span>
@@ -138,13 +138,13 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
               placeholder="Search expenses..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+              className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm sm:text-base"
             />
           </div>
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+            className="px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm sm:text-base"
           >
             <option value="">All Categories</option>
             {categories.map(category => (
@@ -175,8 +175,8 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
               <div className="flex items-center justify-between">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
-                      <span className="text-blue-600 font-semibold text-xs sm:text-sm">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-100 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                      <span className="text-green-600 font-semibold text-xs sm:text-sm">
                         {expense.category.charAt(0)}
                       </span>
                     </div>
@@ -196,7 +196,7 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
                   <div className="flex items-center gap-1 sm:gap-2">
                     <button
                       onClick={() => handleEdit(expense)}
-                      className="p-1.5 sm:p-2 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                      className="p-1.5 sm:p-2 text-slate-600 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
                     >
                       <Edit size={14} className="sm:w-4 sm:h-4" />
                     </button>
@@ -229,7 +229,7 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
                 <select
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm sm:text-base"
                   required
                 >
                   <option value="">Select a category</option>
@@ -247,7 +247,7 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
                   step="0.01"
                   value={formData.amount}
                   onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm sm:text-base"
                   placeholder="0.00"
                   required
                 />
@@ -260,7 +260,7 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
                   type="date"
                   value={formData.date}
                   onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm sm:text-base"
                   required
                 />
               </div>
@@ -272,7 +272,7 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
                   type="text"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm sm:text-base"
                   placeholder="What did you spend on?"
                   required
                 />
@@ -292,7 +292,7 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50 text-sm sm:text-base"
+                  className="flex-1 px-4 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors disabled:opacity-50 text-sm sm:text-base"
                 >
                   {submitting ? 'Saving...' : editingExpense ? 'Update' : 'Add'} Expense
                 </button>
