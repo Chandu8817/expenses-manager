@@ -63,10 +63,10 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
-        <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="text-slate-600 mt-4 text-center">Loading...</p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
+        <div className="bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+          <div className="animate-spin rounded-full h-6 w-6 sm:h-8 sm:w-8 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="text-slate-600 mt-3 sm:mt-4 text-center text-sm sm:text-base">Loading...</p>
         </div>
       </div>
     );
@@ -75,12 +75,12 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
   if (!user) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-200 w-full max-w-md">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-slate-900 mb-2">
+        <div className="bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 w-full max-w-md">
+          <div className="text-center mb-6 sm:mb-8">
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
               Financial Manager
             </h1>
-            <p className="text-slate-600">
+            <p className="text-slate-600 text-sm sm:text-base">
               {isSignUp ? 'Create your account' : 'Sign in to your account'}
             </p>
           </div>
@@ -94,7 +94,7 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
                 placeholder="Enter your email"
                 required
               />
@@ -107,7 +107,7 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
                 placeholder="Enter your password"
                 required
                 minLength={6}
@@ -123,13 +123,13 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 text-sm sm:text-base"
             >
               {loading ? (
-                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                <div className="animate-spin rounded-full h-4 w-4 sm:h-5 sm:w-5 border-b-2 border-white"></div>
               ) : (
                 <>
-                  {isSignUp ? <UserPlus size={20} /> : <LogIn size={20} />}
+                  {isSignUp ? <UserPlus size={18} className="sm:w-5 sm:h-5" /> : <LogIn size={18} className="sm:w-5 sm:h-5" />}
                   {isSignUp ? 'Sign Up' : 'Sign In'}
                 </>
               )}
@@ -151,22 +151,22 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-6 sm:py-8">
         {/* Header with Sign Out */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 sm:mb-8">
           <div>
-            <h1 className="text-4xl font-bold text-slate-900 mb-2">
+            <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">
               Financial Manager
             </h1>
-            <p className="text-slate-600 text-lg">
+            <p className="text-slate-600 text-base sm:text-lg">
               Welcome back, {user.email}
             </p>
           </div>
           <button
             onClick={handleSignOut}
-            className="flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-slate-800 hover:bg-white rounded-xl transition-colors"
+            className="flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-slate-800 hover:bg-white rounded-xl transition-colors text-sm sm:text-base"
           >
-            <LogOut size={20} />
+            <LogOut size={18} className="sm:w-5 sm:h-5" />
             Sign Out
           </button>
         </div>

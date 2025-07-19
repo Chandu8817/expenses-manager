@@ -27,22 +27,22 @@ function MainApp({ user }: { user: User }) {
   return (
     <>
       {/* Navigation */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 mb-12">
-        <div className="flex">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 mb-8 md:mb-12">
+        <div className="flex flex-col sm:flex-row">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             return (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 rounded-2xl font-medium transition-all duration-200 ${
+                className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-medium transition-all duration-200 ${
                   activeTab === tab.id
                     ? 'bg-blue-50 text-blue-600 shadow-sm'
                     : 'text-slate-600 hover:text-slate-800 hover:bg-slate-50'
                 }`}
               >
-                <Icon size={20} />
-                <span>{tab.label}</span>
+                <Icon size={18} className="sm:w-5 sm:h-5" />
+                <span className="text-sm sm:text-base">{tab.label}</span>
               </button>
             );
           })}
@@ -50,7 +50,7 @@ function MainApp({ user }: { user: User }) {
       </div>
 
       {/* Content */}
-      <div className="transition-all duration-300 py-8">
+      <div className="transition-all duration-300 py-4 sm:py-8">
         {activeTab === 'dashboard' && <Dashboard user={user} />}
         {activeTab === 'expenses' && <ExpenseTracker user={user} />}
         {activeTab === 'lend-borrow' && <LendBorrowManager user={user} />}

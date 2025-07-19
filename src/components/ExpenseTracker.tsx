@@ -98,39 +98,39 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-slate-900">Expense Tracker</h2>
-          <p className="text-slate-600">Manage and track your daily expenses</p>
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Expense Tracker</h2>
+          <p className="text-slate-600 text-sm sm:text-base">Manage and track your daily expenses</p>
         </div>
         <button
           onClick={() => setShowForm(true)}
-          className="bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors flex items-center gap-2 shadow-sm"
+          className="w-full sm:w-auto bg-blue-600 text-white px-4 sm:px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 shadow-sm"
         >
-          <Plus size={20} />
-          Add Expense
+          <Plus size={18} className="sm:w-5 sm:h-5" />
+          <span className="text-sm sm:text-base">Add Expense</span>
         </button>
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-        <div className="flex flex-col sm:flex-row gap-4">
+      <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-3 text-slate-400" size={20} />
+            <Search className="absolute left-3 top-3 text-slate-400" size={18} />
             <input
               type="text"
               placeholder="Search expenses..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
             />
           </div>
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
           >
             <option value="">All Categories</option>
             {categories.map(category => (
@@ -138,11 +138,11 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
             ))}
           </select>
         </div>
-        <div className="mt-4 p-4 bg-slate-50 rounded-xl">
-          <p className="text-slate-600">
+        <div className="mt-4 p-3 sm:p-4 bg-slate-50 rounded-xl">
+          <p className="text-slate-600 text-sm sm:text-base">
             Total: <span className="font-semibold text-slate-900">₹{totalAmount.toFixed(2)}</span>
             {filteredExpenses.length !== expenses.length && (
-              <span className="text-sm text-slate-500 ml-2">
+              <span className="text-xs sm:text-sm text-slate-500 ml-2">
                 ({filteredExpenses.length} of {expenses.length} expenses)
               </span>
             )}
@@ -151,46 +151,46 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
       </div>
 
       {/* Expenses List */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200">
-        <div className="p-6 border-b border-slate-200">
-          <h3 className="text-lg font-semibold text-slate-900">Recent Expenses</h3>
+      <div className="bg-white rounded-xl sm:rounded-2xl shadow-sm border border-slate-200">
+        <div className="p-4 sm:p-6 border-b border-slate-200">
+          <h3 className="text-base sm:text-lg font-semibold text-slate-900">Recent Expenses</h3>
         </div>
         <div className="divide-y divide-slate-200">
           {filteredExpenses.map((expense) => (
-            <div key={expense.id} className="p-6 hover:bg-slate-50 transition-colors">
+            <div key={expense.id} className="p-4 sm:p-6 hover:bg-slate-50 transition-colors">
               <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
-                      <span className="text-blue-600 font-semibold text-sm">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                      <span className="text-blue-600 font-semibold text-xs sm:text-sm">
                         {expense.category.charAt(0)}
                       </span>
                     </div>
-                    <div>
-                      <h4 className="font-medium text-slate-900">{expense.category}</h4>
-                      <p className="text-sm text-slate-600">{expense.description}</p>
+                    <div className="min-w-0 flex-1">
+                      <h4 className="font-medium text-slate-900 text-sm sm:text-base truncate">{expense.category}</h4>
+                      <p className="text-sm text-slate-600 truncate">{expense.description}</p>
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 sm:gap-4 ml-2">
                   <div className="text-right">
-                    <p className="text-lg font-semibold text-slate-900">
+                    <p className="text-base sm:text-lg font-semibold text-slate-900">
                       -₹{expense.amount.toFixed(2)}
                     </p>
-                    <p className="text-sm text-slate-600">{expense.date}</p>
+                    <p className="text-xs sm:text-sm text-slate-600">{expense.date}</p>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1 sm:gap-2">
                     <button
                       onClick={() => handleEdit(expense)}
-                      className="p-2 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                      className="p-1.5 sm:p-2 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                     >
-                      <Edit size={16} />
+                      <Edit size={14} className="sm:w-4 sm:h-4" />
                     </button>
                     <button
                       onClick={() => handleDelete(expense.id)}
-                      className="p-2 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                      className="p-1.5 sm:p-2 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                     >
-                      <Trash2 size={16} />
+                      <Trash2 size={14} className="sm:w-4 sm:h-4" />
                     </button>
                   </div>
                 </div>
@@ -203,8 +203,8 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
       {/* Add/Edit Form Modal */}
       {showForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-md">
-            <h3 className="text-xl font-semibold text-slate-900 mb-6">
+          <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
+            <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-4 sm:mb-6">
               {editingExpense ? 'Edit Expense' : 'Add New Expense'}
             </h3>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -215,7 +215,7 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
                 <select
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
                   required
                 >
                   <option value="">Select a category</option>
@@ -233,7 +233,7 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
                   step="0.01"
                   value={formData.amount}
                   onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
                   placeholder="0.00"
                   required
                 />
@@ -246,7 +246,7 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
                   type="date"
                   value={formData.date}
                   onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
                   required
                 />
               </div>
@@ -258,7 +258,7 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
                   type="text"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
                   placeholder="What did you spend on?"
                   required
                 />
@@ -271,14 +271,14 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
                     setEditingExpense(null);
                     setFormData({ category: '', amount: '', date: new Date().toISOString().split('T')[0], description: '' });
                   }}
-                  className="flex-1 px-4 py-3 text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors"
+                  className="flex-1 px-4 py-3 text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors text-sm sm:text-base"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50"
+                  className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50 text-sm sm:text-base"
                 >
                   {submitting ? 'Saving...' : editingExpense ? 'Update' : 'Add'} Expense
                 </button>
