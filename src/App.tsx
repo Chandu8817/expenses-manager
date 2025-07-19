@@ -55,7 +55,7 @@ function MainApp({ user }: { user: User }) {
       </nav>
 
       {/* Content */}
-      <div className="transition-all duration-300 py-4 sm:py-8 pb-20 sm:pb-8 max-w-3xl mx-auto">
+      <div className="transition-all duration-300 py-4 sm:py-8 pb-4 sm:pb-20 max-w-3xl mx-auto">
         {activeTab === 'dashboard' && <Dashboard user={user} />}
         {activeTab === 'expenses' && <ExpenseTracker user={user} />}
         {activeTab === 'lend-borrow' && <LendBorrowManager user={user} />}
