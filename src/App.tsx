@@ -4,15 +4,18 @@ import AuthWrapper from './components/AuthWrapper';
 import ExpenseTracker from './components/ExpenseTracker';
 import LendBorrowManager from './components/LendBorrowManager';
 import Dashboard from './components/Dashboard';
+import { ToastProvider } from './components/ToastProvider';
 import { User } from '@supabase/supabase-js';
 
 type Tab = 'dashboard' | 'expenses' | 'lend-borrow';
 
 function App() {
   return (
-    <AuthWrapper>
-      {(user: User) => <MainApp user={user} />}
-    </AuthWrapper>
+    <ToastProvider>
+      <AuthWrapper>
+        {(user: User) => <MainApp user={user} />}
+      </AuthWrapper>
+    </ToastProvider>
   );
 }
 

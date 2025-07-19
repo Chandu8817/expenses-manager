@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Plus, Edit, Trash2, Filter, Search, Calendar } from 'lucide-react';
 import { User } from '@supabase/supabase-js';
 import { useExpenses } from '../hooks/useExpenses';
+import { useToast } from './ToastProvider';
+import ConfirmDialog from './ConfirmDialog';
 
 interface ExpenseTrackerProps {
   user: User;
@@ -9,12 +11,17 @@ interface ExpenseTrackerProps {
 
 const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
   const { expenses, loading, error, addExpense, updateExpense, deleteExpense } = useExpenses(user);
+  const { showSuccess, showError, showWarning } = useToast();
 
   const [showForm, setShowForm] = useState(false);
   const [editingExpense, setEditingExpense] = useState<any>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [deleteDialog, setDeleteDialog] = useState<{ isOpen: boolean; expenseId: string | null }>({
+    isOpen: false,
+    expenseId: null,
+  });
 
   const [formData, setFormData] = useState({
     category: '',
@@ -36,16 +43,18 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
           amount: parseFloat(formData.amount),
         });
         setEditingExpense(null);
+        showSuccess('Expense updated successfully!');
       } else {
         await addExpense({
           ...formData,
           amount: parseFloat(formData.amount),
         });
+        showSuccess('Expense added successfully!');
       }
       setFormData({ category: '', amount: '', date: new Date().toISOString().split('T')[0], description: '' });
       setShowForm(false);
-    } catch (err) {
-      console.error('Error saving expense:', err);
+    } catch (err: any) {
+      showError('Error saving expense: ' + err.message);
     } finally {
       setSubmitting(false);
     }
@@ -63,12 +72,17 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
   };
 
   const handleDelete = async (id: string) => {
-    if (confirm('Are you sure you want to delete this expense?')) {
-      try {
-        await deleteExpense(id);
-      } catch (err) {
-        console.error('Error deleting expense:', err);
-      }
+    setDeleteDialog({ isOpen: true, expenseId: id });
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteDialog.expenseId) return;
+    
+    try {
+      await deleteExpense(deleteDialog.expenseId);
+      showSuccess('Expense deleted successfully!');
+    } catch (err: any) {
+      showError('Error deleting expense: ' + err.message);
     }
   };
 
@@ -287,6 +301,18 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
           </div>
         </div>
       )}
+
+      {/* Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={deleteDialog.isOpen}
+        onClose={() => setDeleteDialog({ isOpen: false, expenseId: null })}
+        onConfirm={confirmDelete}
+        title="Delete Expense"
+        message="Are you sure you want to delete this expense? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        type="danger"
+      />
     </div>
   );
 };

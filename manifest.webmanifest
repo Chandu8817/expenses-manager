@@ -1,0 +1,16 @@
+{
+  "name": "Financial Manager",
+  "short_name": "Finance",
+  "description": "Track expenses, lending, and borrowing.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48 64x64 96x96 128x128 256x256",
+      "type": "image/x-icon"
+    }
+  ]
+} 

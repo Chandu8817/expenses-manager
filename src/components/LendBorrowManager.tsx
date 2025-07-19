@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Plus, Edit, Trash2, Check, X, User, ArrowUp, ArrowDown } from 'lucide-react';
 import { User as SupabaseUser } from '@supabase/supabase-js';
 import { useLendBorrow } from '../hooks/useLendBorrow';
+import { useToast } from './ToastProvider';
+import ConfirmDialog from './ConfirmDialog';
 
 interface LendBorrowManagerProps {
   user: SupabaseUser;
@@ -9,11 +11,16 @@ interface LendBorrowManagerProps {
 
 const LendBorrowManager: React.FC<LendBorrowManagerProps> = ({ user }) => {
   const { records, loading, error, addRecord, updateRecord, deleteRecord } = useLendBorrow(user);
+  const { showSuccess, showError, showWarning } = useToast();
 
   const [showForm, setShowForm] = useState(false);
   const [editingItem, setEditingItem] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<'all' | 'lent' | 'borrowed'>('all');
   const [submitting, setSubmitting] = useState(false);
+  const [deleteDialog, setDeleteDialog] = useState<{ isOpen: boolean; recordId: string | null }>({
+    isOpen: false,
+    recordId: null,
+  });
 
   const [formData, setFormData] = useState({
     person: '',
@@ -39,16 +46,18 @@ const LendBorrowManager: React.FC<LendBorrowManagerProps> = ({ user }) => {
       if (editingItem) {
         await updateRecord(editingItem.id, recordData);
         setEditingItem(null);
+        showSuccess('Record updated successfully!');
       } else {
         await addRecord({
           ...recordData,
           status: 'pending',
         });
+        showSuccess('Record added successfully!');
       }
       setFormData({ person: '', amount: '', type: 'lent', date: new Date().toISOString().split('T')[0], description: '', dueDate: '' });
       setShowForm(false);
-    } catch (err) {
-      console.error('Error saving record:', err);
+    } catch (err: any) {
+      showError('Error saving record: ' + err.message);
     } finally {
       setSubmitting(false);
     }
@@ -68,20 +77,26 @@ const LendBorrowManager: React.FC<LendBorrowManagerProps> = ({ user }) => {
   };
 
   const handleDelete = async (id: string) => {
-    if (confirm('Are you sure you want to delete this record?')) {
-      try {
-        await deleteRecord(id);
-      } catch (err) {
-        console.error('Error deleting record:', err);
-      }
+    setDeleteDialog({ isOpen: true, recordId: id });
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteDialog.recordId) return;
+    
+    try {
+      await deleteRecord(deleteDialog.recordId);
+      showSuccess('Record deleted successfully!');
+    } catch (err: any) {
+      showError('Error deleting record: ' + err.message);
     }
   };
 
   const handleStatusChange = async (id: string, status: 'pending' | 'completed') => {
     try {
       await updateRecord(id, { status });
-    } catch (err) {
-      console.error('Error updating status:', err);
+      showSuccess(`Record marked as ${status}!`);
+    } catch (err: any) {
+      showError('Error updating status: ' + err.message);
     }
   };
 
@@ -373,6 +388,18 @@ const LendBorrowManager: React.FC<LendBorrowManagerProps> = ({ user }) => {
           </div>
         </div>
       )}
+
+      {/* Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={deleteDialog.isOpen}
+        onClose={() => setDeleteDialog({ isOpen: false, recordId: null })}
+        onConfirm={confirmDelete}
+        title="Delete Record"
+        message="Are you sure you want to delete this record? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        type="danger"
+      />
     </div>
   );
 };

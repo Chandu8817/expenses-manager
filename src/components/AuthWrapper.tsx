@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { User } from '@supabase/supabase-js';
 import { LogIn, UserPlus, LogOut } from 'lucide-react';
+import { useToast } from './ToastProvider';
 
 interface AuthWrapperProps {
   children: (user: User) => React.ReactNode;
@@ -14,6 +15,7 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { showSuccess, showError } = useToast();
 
   useEffect(() => {
     // Get initial session
@@ -43,22 +45,30 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
           password,
         });
         if (error) throw error;
+        showSuccess('Account created successfully! Please check your email to verify your account.');
       } else {
         const { error } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
         if (error) throw error;
+        showSuccess('Welcome back!');
       }
     } catch (error: any) {
       setError(error.message);
+      showError(error.message);
     } finally {
       setLoading(false);
     }
   };
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
+    try {
+      await supabase.auth.signOut();
+      showSuccess('Signed out successfully');
+    } catch (error: any) {
+      showError('Error signing out: ' + error.message);
+    }
   };
 
   if (loading) {
