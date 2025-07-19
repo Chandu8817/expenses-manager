@@ -208,49 +208,31 @@ const LendBorrowManager: React.FC<LendBorrowManagerProps> = ({ user }) => {
         {/* Records List */}
         <div className="divide-y divide-slate-200">
           {filteredItems.map((item) => (
-            <div key={item.id} className="p-3 sm:p-6 hover:bg-slate-50 transition-colors">
-              {/* Record Row: Left (info) | Right (amount + actions) */}
-              <div className="flex flex-row gap-2 items-center">
-                {/* Left: Icon + Info */}
-                <div className="flex-1 min-w-0 flex items-center gap-2 sm:gap-3">
-                  <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0 ${
-                    item.type === 'lent' ? 'bg-green-100' : 'bg-orange-100'
-                  }`}>
-                    {item.type === 'lent' ? 
-                      <ArrowUp className="text-primary-dark sm:w-5 sm:h-5" size={16} /> :
-                      <ArrowDown className="text-orange-600 sm:w-5 sm:h-5" size={16} />
-                    }
+            <div key={item.id} className="card mb-4 p-4 sm:p-6">
+              {/* Top row: Name + Amount */}
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${item.type === 'lent' ? 'bg-green-100' : 'bg-orange-100'}`}> 
+                    {item.type === 'lent' ? <ArrowUp className="text-primary-dark w-5 h-5" /> : <ArrowDown className="text-orange-600 w-5 h-5" />}
                   </div>
-                  <div className="min-w-0 flex-1">
-                    <h4 className="font-medium text-slate-900 text-sm sm:text-base truncate">{item.person}</h4>
-                    <p className="text-xs sm:text-sm text-slate-600 break-words line-clamp-2">{item.description}</p>
-                    <div className="flex items-center gap-2 mt-1 flex-wrap">
-                      <span className="text-xs text-slate-500">{item.date}</span>
-                      {item.due_date && (
-                        <>
-                          <span className="text-xs text-slate-400">•</span>
-                          <span className="text-xs text-slate-500">Due: {item.due_date}</span>
-                        </>
-                      )}
-                      <span className={`text-xs px-2 py-1 rounded-full ${
-                        item.status === 'completed' 
-                          ? 'bg-green-100 text-green-600' 
-                          : 'bg-yellow-100 text-yellow-600'
-                      }`}>
-                        {item.status}
-                      </span>
-                    </div>
-                  </div>
+                  <span className="font-semibold text-base sm:text-lg text-slate-900 truncate max-w-[120px] sm:max-w-[180px]">{item.person}</span>
                 </div>
-                {/* Right: Amount + Actions */}
-                <div className="flex items-center gap-1 flex-shrink-0 ml-2">
-                  <div className="text-right min-w-[80px]">
-                    <p className={`text-base sm:text-lg font-semibold ${
-                      item.type === 'lent' ? 'text-primary-dark' : 'text-orange-600'
-                    }`}>
-                      {item.type === 'lent' ? '+' : '-'}₹{item.amount.toFixed(2)}
-                    </p>
-                  </div>
+                <span className={`font-bold text-lg sm:text-xl ${item.type === 'lent' ? 'text-primary-dark' : 'text-orange-600'}`}>{item.type === 'lent' ? '+' : '-'}₹{item.amount.toFixed(2)}</span>
+              </div>
+              {/* Description row */}
+              {item.description && (
+                <div className="mt-1">
+                  <span className="text-sm text-slate-600 break-words line-clamp-2">{item.description}</span>
+                </div>
+              )}
+              {/* Bottom row: Date, Status, Actions */}
+              <div className="flex items-center justify-between mt-3 gap-2 flex-wrap">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span className="text-xs text-slate-500">{item.date}</span>
+                  {item.due_date && <span className="text-xs text-slate-400">• Due: {item.due_date}</span>}
+                  <span className={`text-xs px-2 py-1 rounded-full ${item.status === 'completed' ? 'bg-green-100 text-green-600' : 'bg-yellow-100 text-yellow-600'}`}>{item.status}</span>
+                </div>
+                <div className="flex items-center gap-1">
                   {item.status === 'pending' && (
                     <button
                       onClick={() => handleStatusChange(item.id, 'completed')}

@@ -171,42 +171,39 @@ const ExpenseTracker: React.FC<ExpenseTrackerProps> = ({ user }) => {
         </div>
         <div className="divide-y divide-slate-200">
           {filteredExpenses.map((expense) => (
-            <div key={expense.id} className="p-4 sm:p-6 hover:bg-slate-50 transition-colors">
-              <div className="flex items-center justify-between">
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-100 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
-                      <span className="text-green-600 font-semibold text-xs sm:text-sm">
-                        {expense.category.charAt(0)}
-                      </span>
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <h4 className="font-medium text-slate-900 text-sm sm:text-base truncate">{expense.category}</h4>
-                      <p className="text-sm text-slate-600 truncate">{expense.description}</p>
-                    </div>
+            <div key={expense.id} className="card mb-4 p-4 sm:p-6">
+              {/* Top row: Category + Amount */}
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 bg-green-100">
+                    <span className="text-green-600 font-semibold text-base">{expense.category.charAt(0)}</span>
                   </div>
+                  <span className="font-semibold text-base sm:text-lg text-slate-900 truncate max-w-[120px] sm:max-w-[180px]">{expense.category}</span>
                 </div>
-                <div className="flex items-center gap-2 sm:gap-4 ml-2">
-                  <div className="text-right">
-                    <p className="text-base sm:text-lg font-semibold text-slate-900">
-                      -₹{expense.amount.toFixed(2)}
-                    </p>
-                    <p className="text-xs sm:text-sm text-slate-600">{expense.date}</p>
-                  </div>
-                  <div className="flex items-center gap-1 sm:gap-2">
-                    <button
-                      onClick={() => handleEdit(expense)}
-                      className="p-1.5 sm:p-2 text-slate-600 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
-                    >
-                      <Edit size={14} className="sm:w-4 sm:h-4" />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(expense.id)}
-                      className="p-1.5 sm:p-2 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                    >
-                      <Trash2 size={14} className="sm:w-4 sm:h-4" />
-                    </button>
-                  </div>
+                <span className="font-bold text-lg sm:text-xl text-red-600">-₹{expense.amount.toFixed(2)}</span>
+              </div>
+              {/* Description row */}
+              {expense.description && (
+                <div className="mt-1">
+                  <span className="text-sm text-slate-600 break-words line-clamp-2">{expense.description}</span>
+                </div>
+              )}
+              {/* Bottom row: Date, Actions */}
+              <div className="flex items-center justify-between mt-3 gap-2 flex-wrap">
+                <span className="text-xs text-slate-500">{expense.date}</span>
+                <div className="flex items-center gap-1">
+                  <button
+                    onClick={() => handleEdit(expense)}
+                    className="action-btn text-slate-600"
+                  >
+                    <Edit size={16} className="sm:w-4 sm:h-4" />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(expense.id)}
+                    className="action-btn text-slate-600 hover:text-red-600"
+                  >
+                    <Trash2 size={16} className="sm:w-4 sm:h-4" />
+                  </button>
                 </div>
               </div>
             </div>
